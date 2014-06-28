@@ -2,6 +2,14 @@
 all:
 	@echo "Compiling LESS"
 	lessc -x src/App.Web/content/style.less > src/App.Web/content/style.css
-	uglifyjs src/App.Web/content/vendor/bootstrap/js/*.js \
+	uglifyjs \
+		src/App.Web/content/vendor/bootstrap/js/tooltip.js \
+		src/App.Web/content/vendor/bootstrap/js/popover.js \
+		src/App.Web/content/vendor/signalr-hub.js \
+		src/App.Web/content/vendor/moment.js \
+		src/App.Web/content/vendor/angular-moment.js \
+		src/App.Web/content/site/js/main.js \
 		-o src/App.Web/content/site.js \
-		--source-map src/App.Web/content/site.js.map
+		--source-map src/App.Web/content/site.js.map \
+		--source-map-url /content/site.js.map \
+		--source-map-root /content/

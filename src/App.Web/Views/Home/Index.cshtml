@@ -4,8 +4,24 @@
 	<div class="soft-hero">
 		<h1>ASP.NET vNext &ndash; Hosted Anywhere</h1>
 		<p class="lead">
-			This is a website that's been written using ASP.NET vNext.<br />
-			The code driving it has never touched a Windows PC.
+			This is a website that's running under ASP.NET vNext.
 		</p>
+	</div>
+	<div class="well" ng-controller="ChatCtrl">
+		<form class="form-inline" role="form" onsubmit="return false;">
+			<div class="form-group">
+				<input type="text" ng-model="name" class="form-control" placeholder="Name" ng-change="storeName()" />
+				<input type="text" ng-model="message" class="form-control" placeholder="Message..." autofocus />
+				<button class="btn btn-primary" ng-click="send()" ng-disabled="!ready || !message || !name">Send</button>
+			</div>
+		</form>
+		<hr />
+		<ul id="messages" class="list-group">
+			<li class="list-group-item" ng-repeat="m in messages | orderBy:'Sent':true | limitTo: 10">
+				<small class="pull-right">{{m.Sent | amCalendar}}</small>
+				<h4 class="list-group-item-heading">{{m.Sender}}</h4>
+				<p class="list-group-item-text">{{m.Content}}</p>
+			</li>
+		</ul>
 	</div>
 </div>
