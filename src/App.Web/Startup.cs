@@ -18,7 +18,7 @@ public class Startup
             services.AddMvc();
 
             services.AddSignalR();
-            });
+        });
 
         app.Use(async (context, next) => 
         {
@@ -32,12 +32,11 @@ public class Startup
             {
                 Console.WriteLine(ex);
             }
-            });
+        });
 
         app.UseMvc(routes =>
         {
             routes.MapRoute("Home", string.Empty, new { controller = "Static", action = "Index" });
-            routes.MapRoute("Chat", "chat", new { controller = "Static", action = "Chat" });
         });
 
         app.UseSignalR();
