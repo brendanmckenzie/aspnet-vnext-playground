@@ -9,7 +9,18 @@ angular.module('App.Modules').controller('ChatCtrl', ['$scope', '$rootScope', 'H
             $scope.$$phase || $scope.$apply();
         },
         'client_connected': function (client) {
-            $scope.clients.push(client);
+            var exists = false;
+            for (var i = 0; i < $scope.clients.length; i++) {
+                if ($scope.clients[i].ConnectionId == client.ConnectionId) {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists) {
+                $scope.clients.push(client);
+            }
+            
             $scope.$$phase || $scope.$apply();
         },
         'client_disconnected': function (id) {
@@ -47,7 +58,7 @@ angular.module('App.Modules').controller('ChatCtrl', ['$scope', '$rootScope', 'H
         else {
             $scope.name = 'Guest';
         }
-        
+
         $scope.ready = true;
         $scope.$$phase || $scope.$apply();
     });
