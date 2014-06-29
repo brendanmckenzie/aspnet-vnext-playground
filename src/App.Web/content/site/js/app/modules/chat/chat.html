@@ -16,5 +16,9 @@
 				<p class="list-group-item-text">{{m.Content}}</p>
 			</li>
 		</ul>
+		<hr />
+		<ul>
+			<li ng-repeat="c in clients | orderBy:'Name'">{{c.Name}}</li>
+		</ul>
 	</div>
 </div>
