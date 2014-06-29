@@ -1,30 +1,19 @@
-angular.module('App', ['SignalR', 'angularMoment'])
+angular.module('App', [
+	'ui.router',
+    'SignalR',
+    'angularMoment',
+    'App.Shared',
+    'App.Modules'])
 
-.controller('ChatCtrl', ['$scope', '$rootScope', 'Hub', function ($scope, $rootScope, Hub) {
-    $scope.messages = [];
-    $scope.name = localStorage['name'];
-    
-    $scope.hub = new Hub('chat', {
-        'send': function (message) {
-            $scope.messages.push(message);
-            $rootScope.$apply();
-        }
-    },
-    ['send'], $scope);
+.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+	$urlRouterProvider.otherwise('/');
 
-
-    $scope.hub.start().then(function() { 
-        $scope.ready = true;
-        $rootScope.$apply();
-    });
-
-    $scope.send = function () {
-        $scope.hub.send($scope.name, $scope.message);
-
-        $scope.message = '';
-    }
-
-    $scope.storeName = function () {
-        localStorage['name'] = $scope.name;
-    };
+	$stateProvider.state('home', {
+		url: '/',
+		templateUrl: '/content/site/js/app/modules/home/home.html'
+	}).state('chat', {
+		url: '/chat',
+		templateUrl: '/content/site/js/app/modules/chat/chat.html',
+		controller: 'ChatCtrl'
+	})
 }]);

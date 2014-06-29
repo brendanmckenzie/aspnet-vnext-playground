@@ -1,9 +1,13 @@
 using System;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Routing;
 using Microsoft.AspNet.Builder;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.AspNet.StaticFiles;
 using Microsoft.AspNet.SignalR;
+
+using App.Web.Controllers;
+using App.Web.Hubs;
 
 public class Startup
 {
@@ -18,7 +22,7 @@ public class Startup
 
         app.Use(async (context, next) => 
         {
-            Console.WriteLine(context.Request.Path);
+            Console.WriteLine(string.Format("{0:HH:mm:ss} {1}", DateTime.Now, context.Request.Path));
 
             try
             {
@@ -30,33 +34,14 @@ public class Startup
             }
             });
 
-        app.UseMvc();
+        app.UseMvc(routes =>
+        {
+            routes.MapRoute("Home", string.Empty, new { controller = "Static", action = "Index" });
+            routes.MapRoute("Chat", "chat", new { controller = "Static", action = "Chat" });
+        });
 
         app.UseSignalR();
 
         app.UseStaticFiles();
     }
-}
-
-public class HomeController : Controller
-{
-    public ActionResult Index()
-    {
-        return View();
-    }
-}
-
-public class Chat : Hub
-{
-    public void Send(string name, string message)
-    {
-        Clients.All.send(new Message { Sent = DateTime.Now, Sender = name, Content = message });
-    }
-}
-
-public class Message
-{
-    public string Sender { get; set; }
-    public DateTime Sent { get; set; }
-    public string Content { get; set; }
 }
