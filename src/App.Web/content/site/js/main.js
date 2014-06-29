@@ -10,7 +10,8 @@ angular.module('App', [
 
 	$stateProvider.state('home', {
 		url: '/',
-		templateUrl: '/content/site/js/app/modules/home/home.html'
+		templateUrl: '/content/site/js/app/modules/home/home.html',
+		controller: 'HomeCtrl'
 	}).state('chat', {
 		url: '/chat',
 		templateUrl: '/content/site/js/app/modules/chat/chat.html',

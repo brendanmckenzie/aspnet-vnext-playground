@@ -1,2 +1,3 @@
-angular.module('App.Modules').controller('HomeCtrl', ['$scope', function ($scope) {
+angular.module('App.Modules').controller('HomeCtrl', ['$scope', 'PageService', function ($scope, PageService) {
+	PageService.setTitle(null);
 }]);

@@ -1,4 +1,5 @@
-angular.module('App.Modules').controller('ChatCtrl', ['$scope', '$rootScope', 'Hub', function ($scope, $rootScope, Hub) {
+angular.module('App.Modules').controller('ChatCtrl', ['$scope', '$rootScope', 'Hub', 'PageService', function ($scope, $rootScope, Hub, PageService) {
+    PageService.setTitle('Chat');
     $scope.messages = [];
     $scope.name = localStorage['name'];
     
